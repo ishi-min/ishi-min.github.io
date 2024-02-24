@@ -1,0 +1,430 @@
+@charset "utf-8";
+
+/* 変数を登録 */
+:root{
+  --header_color:#b1acc2;/* #d2cce6 */
+  --nav_color:#d3d7f1;/*  #f1d3d3 #e4d8c3*/
+  --content_txt:#e0d3f1;
+  --col-1:#f1d3ef;
+  --colo-3-txt:#d3d7f1;
+  --footer:#e6cccc;/* #cce6e1 */
+}
+
+html{box-sizing:border-box;-webkit-text-size-adjust:100%}*,:after,:before{background-repeat:no-repeat;box-sizing:inherit}:after,:before{text-decoration:inherit;vertical-align:inherit}*{padding:0;margin:0;box-sizing:border-box;}audio:not([controls]){display:none;height:0}hr{overflow:visible}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}summary{display:list-item}small{font-size:80%}[hidden],template{display:none}abbr[title]{border-bottom:1px dotted;text-decoration:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}code,kbd,pre,samp{font-family:monospace,monospace}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}input{border-radius:0}[role=button],[type=button],[type=reset],[type=submit],button{cursor:pointer}[disabled]{cursor:default}[type=number]{width:auto}[type=search][type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;resize:vertical}button,input,optgroup,select,textarea{font:inherit}optgroup{font-weight:700}button{overflow:visible}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:0;padding:0}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button:-moz-focusring{outline:1px dotted}[type=reset],[type=submit],button,html [type=button]button,select{text-transform:none}button,input,select,textarea{background-color:transparent;border-style:none;color:inherit}select::-ms-expand{display:none}select::-ms-value{color:currentColor}legend{border:0;color:inherit;display:table;max-width:100%;white-space:normal}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}[type=search]img{border-style:none;vertical-align: bottom}progress{vertical-align:baseline}svg:not(:root){overflow:hidden}audio,canvas,progress,video{display:inline-block}@media screen{[hidden~=screen]{display:inherit}[hidden~=screen]:not(:active):not(:focus):not(:target){position:absolute!important;clip:rect(0 0 0 0)!important}}[aria-busy=true]{cursor:progress}[aria-controls]{cursor:pointer}[aria-disabled]{cursor:default}::-moz-selection{background-color:#b3d4fc;color:#000;text-shadow:none}::selection{background-color:#b3d4fc;color:#000;text-shadow:none}ul,ol{list-style:none;}a{text-decoration:none;}img{max-width: 100%;vertical-align: bottom;}
+
+body{
+  font-family: "Nanum Myeongjo", serif;
+  color: #222;
+  overflow-x: hidden;/* 横方向にはみ出た分かくす。（右に移動させてるナビゲーションがあるから */
+}
+
+/* spレイアウト */
+
+header{
+  width: 100%;/* positionを使うときは必ず幅の指定がいる */
+  height: 60px;
+  background-color: var(--header_color);
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;/* fixedにすると下の写真が上にあがってしまう.
+  sickyはスクロールしたら固定になるやつ */
+  top: 0;
+  left: 0;
+  z-index: calc(infinity);/* 1番上にくる記述 */
+  @media (min-width:900px){
+    height: 100px;
+    position: static;/* stickyの解除 */
+  }
+}
+h1{
+  width: 50%;
+  height: 40px;
+  background: url(../img/logo2.svg) no-repeat left center/contain;
+  /* coverだとはみでる可能性がある.どちらも縦横比は崩さない。 */
+  /* h1の文字を隠す命令3点 */
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  @media (min-width:900px){
+    width: 100%;
+    height: 50px;
+    background: url(../img/logo2.svg) no-repeat center center/contain;
+  }
+}
+
+/* ハンバーガーメニュー */
+#ham-btn{
+  width: 44px;
+  height: 44px;
+  border: 1px solid #222; 
+  position: relative;
+  >span{
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #222;
+    position: absolute;
+    inset: 0;/* 4方向にしたことと同じ */
+    margin: auto;/* insetだけじゃなくてこれとセットでど真ん中に */
+    top: -12px;/* 真ん中にしてから上にずらす */
+    transition: 0.3s;/* is-activeが入る前なのでここに入力 */
+   &::after{
+    display: block;
+    content: "";
+    width: 20px;
+    height: 2px;
+    background-color: #222;
+    position: absolute;
+    top: 12px;
+    transition: 0.2s;
+   }
+  }
+  &.is-active>span{
+    top: 0;
+    rotate: 45deg;
+    &::after{
+      top: 0;
+      rotate: 90deg;
+    }
+  }
+  @media (min-width:900px){
+    display: none;
+  }
+}
+
+/* ナビゲーション部分 */
+#pc-nav{
+  display: none;
+  @media (min-width:900px){
+    width: 100%;/* positionいれたから幅がいる */
+    display: block;
+    height: 50px;
+    background-color: var(--nav_color);
+    position: sticky;/* これと */
+    top: 0;/* これがないと変な所で残ってカチューシャ状態になってしまう */
+    >ul{
+      display: flex;
+      justify-content: center;
+      height: 50px;
+      align-items: center;/* height50pxが必要 */
+      gap: 0 20px;
+      a{
+        display: block;
+        overflow: hidden;
+        padding: 10px 16px;
+        color: #222;
+        position: relative;
+        &::after{
+          display: block;
+          content: "";
+          width: 100%;
+          height: 1px;
+          background-color: #222;
+          position: absolute;
+          inset: 0;/* これと */
+          margin: auto;/* これでど真ん中 */
+          top: 30px;
+          /* scale: 0; *//* 線消す。ホバーしたらでてくるようにしたいから */
+          translate: -110% 0;
+          transition: 0.2s;
+        }
+        &:hover::after{
+         /*  scale: 1; */
+         translate: 0 0;
+        }
+      }
+    }
+  }
+}
+
+/* sp用ナビ */
+#g-nav{
+ width: 100%;
+ height: calc(100vh - 60px);/* 1画面分-headerの60px */
+ position: fixed;
+ top: 60px;
+ left: 0;
+ background-color: var(--nav_color);
+ z-index: calc(infinity);/* 1番上にくる記述 */
+ padding: 40px 20px;
+ translate: 100% 0;/* 右横の見えないところに移動させる。左にしたかったら-100％ */
+
+
+ li{
+  margin-bottom: 16px;
+  >a{
+  color: #222;
+  display: block;/* 横幅いっぱいになる */
+  padding: 10px 0;/* 縦の命令 */
+  font-size: 18px;
+  border-bottom: 1px solid #222;
+  padding: 10px 0 10px 10px;
+ }
+ }
+ 
+ &.move{/* 親要素に.moveがついた時 */
+  translate: 0 0;/* 元の位置にもどる */
+ transition: 0.3s;/* 行きだけちょっとゆっくり。戻るときもゆっくりにしたかったらここのtransitionを消して、#g-navにいれる*/
+ }
+ @media (min-width:900px){
+  display: none;
+ }
+
+}
+
+ 
+/* main部分 */
+main{
+  padding: 10px 10px 0;
+}
+.content-wrapper{
+  margin-bottom: 10px;
+/*   &:nth-of-type(2)>.content-txt{
+    background-color: var(--col-1);
+  } */
+  @media (min-width:680px){
+    display: flex;
+    justify-content: space-between;
+    &:nth-of-type(even){/* 2でもOK.evenは偶数 */
+      flex-direction: row-reverse;
+    }
+  }
+}
+.content-img{
+  height: 45vh;
+  margin-bottom: 10px;
+  >img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  @media (min-width:680px){
+   width: calc((100% - 20px) / 3  * 2 + 10px);
+   height: 90vh;
+   margin-bottom: 0;
+  }
+}
+
+.content-txt{
+  background-color: var(--content_txt);
+  height: calc(100vh - 90px - 45vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  >h2{
+    margin-bottom: 20px;
+  >p{
+    padding: 0 20px;
+    line-height: 1.8;
+  }
+  }
+  @media (min-width:680px){
+    width: calc((100% - 20px) / 3);
+    height: auto;
+   }
+}
+
+/* col-1部分 */
+.col-1{
+  margin-bottom: 10px;
+  background-color: var(--col-1);
+  padding: 20vh 20px;
+  text-align: center;
+  line-height: 1.8;
+  >h2{
+    margin-bottom: 40px;
+  }
+  >.text{
+    margin-bottom: 60px;
+  }
+}
+
+/* col-3部分 */
+
+@media (min-width:900px){
+  .col-3-wrapper{
+    display: flex;
+    gap: 0 10px;
+   >.col-3-box{
+    width: calc((100% - 20px) / 3);
+    display: block;
+   }
+  }
+  
+}
+
+
+
+.col-3-box{
+  margin-bottom: 10px;
+  &:nth-of-type(2) .icon{
+    background: #fff url(../img/sofa.svg) no-repeat center center/48px;
+  }
+  &:nth-of-type(3) .icon{
+    background: #fff url(../img/green.svg) no-repeat center center/48px;
+  }
+  @media (min-width:680px){
+    display: flex;
+  }
+}
+.col-3-img{
+  height: 30vh;
+  >img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  @media (min-width:680px){
+    width: 50%;
+    height: 80vh;
+  }
+  @media (min-width:900px){
+    width: 100%;
+    height: 40vh;
+  }
+}
+.col-3-txt{
+  height: 320px;
+  background-color: var(--colo-3-txt);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  
+  >h3{
+    margin-bottom: 20px;
+    font-size: 26px;
+  }
+  >.icon{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: #fff url(../img/bed.svg) no-repeat center center/48px;
+    /* 家具のアイコンを消すための３点セット */
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  @media (min-width:680px){
+    width: 50%;
+    height: auto;/* 横並びの場合大きい方にあってくれる */
+  }
+  @media (min-width:900px){
+    width: 100%;
+    height: 320px;
+  }
+}
+
+/* ボタンのスタイル */
+.to-more{
+  width: 50%;
+  margin: 0 auto;
+  background-color: #c4bebe;
+  border-radius: 100px;
+  >a{
+    display: block;
+    padding: 16px 0;
+    color: #222;
+  &::after{
+    display: inline-block;
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #222;
+    border-right: 2px solid #222;
+    rotate: 45deg;
+    margin-left: 12px;
+  }
+  }
+}
+
+/* お申込みボタン buidstd.comから持ってきた */
+.to-form a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin: 0 auto;
+  padding: 1em 2em;
+  width: 200px;
+  color: #222;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #e6ccd6;
+  transition: 0.3s;
+}
+
+.to-form a::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border: 2px solid #b9b3cf;
+  transition: 0.2s;
+}
+
+.to-form a::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-top: 3px solid #222;
+  border-right: 3px solid #222;
+  transform: rotate(45deg);
+}
+
+.to-form a:hover::before {
+  top: 0;
+  left: 0;
+}
+
+.to-form a:hover {
+  text-decoration: none;
+  background-color: #a0c4d3;
+}
+/* ↑ここまでボタン */
+
+/* footer部分 */
+footer{
+  background-color: var(--footer);
+  padding: 40px 0;
+  margin: 0 10px 10px;
+  >p{
+    font-size: 16px;
+    text-align: center;
+  }
+
+}
+
+/* ローディングアニメーション */
+#curtain{
+  width: 100%;
+  height: 100vh;
+  background-color: var(--content_txt);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: calc(infinity);
+}
+
+#logo-box{
+  max-width: 500px;
+  margin: 200px auto 0;
+  path{
+    fill: var(--content_txt);/* 塗りの色。curtainの背景色と同じにして見えなくする */
+    stroke: #222;/* 線の色 */
+    stroke-dasharray: 260px;/* イラストレーターで調べた文字の一番長い長さ */
+    stroke-dashoffset: 260px;/* dasharrayと同じ大きさ。「ここできれいに隠れてたらOK*/
+    animation: svg 2.2s  0.5s linear forwards;/* svgは自分で決める名前。0.5sはdelayの数字。始まってから動くまでの時間。1linear=同じ速度で動く。forwards=終わったあとそのまま */
+  }
+}
+@keyframes svg{
+  0%{stroke-dashoffset: 260px;}
+  80%{stroke-dashoffset: 0;fill: var(--content_txt);}
+  100%{stroke-dashoffset: 0;fill: #222;} 
+}
