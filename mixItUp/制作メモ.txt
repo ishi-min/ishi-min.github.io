@@ -1,0 +1,41 @@
+1.自身で動画のカテゴリーを3つ決め、それに沿って1カテゴリーにつき３つの動画をきめる
+2.それぞれの動画をキャプチャ―にとって、Photoshopで1280ｘ720pxでアセットで書き出す
+3.使ったプラグイン
+https://github.com/patrickkunka/mixitup（有料）
+https://fancyapps.com/fancybox/
+
+fancyboxはメジャーなのでcdnになっている。zipダウンロードする必要が無く
+cdnを貼り付けでおｋ
+
+
+載せるカテゴリー
+1 お笑い（トーク）
+https://www.youtube.com/watch?v=aFa_EhXIIGc&t=590s
+https://www.youtube.com/watch?v=bj4TkBU8jSE&t=2s
+https://www.youtube.com/watch?v=MWViz8NBmj8
+https://www.youtube.com/watch?v=P45i9idwhJM&t=177s
+
+２ 音楽
+https://www.youtube.com/watch?v=1FBRdQdVEtk
+https://www.youtube.com/watch?v=c7Cu3RP9xso
+https://www.youtube.com/watch?v=AIT-w3N1fHU
+
+３ ちいかわ
+https://www.youtube.com/watch?v=FLhFOjr2DlA
+https://www.youtube.com/watch?v=TAucKlwJVkw
+https://www.youtube.com/watch?v=UvcCdqG-_ko
+
+４　お菓子
+https://www.youtube.com/watch?v=ShI0y3Iy1VM
+https://www.youtube.com/watch?v=FzvRjCH3Td8
+https://www.youtube.com/watch?v=w6oa1gjHFvQ
+
+5　ケーキ
+https://www.youtube.com/watch?v=Rtn8A06Q8Hg
+https://www.youtube.com/watch?v=K0KbXHyLXsg
+https://www.youtube.com/watch?v=gDqyXnSXR5E
+
+６　スイーツビュッフェ
+https://www.youtube.com/watch?v=vfPv0PiAGJ8
+https://www.youtube.com/watch?v=jPOGcZTV-ws
+https://www.youtube.com/watch?v=eLvLIRbnDFU
