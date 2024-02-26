@@ -9,6 +9,7 @@ h1{
 .container{
   max-width: 960px;
   margin: 0 auto 50px;
+  padding: 10px;
 }
 .contents{
   display: flex;
@@ -25,6 +26,9 @@ h1{
     width: 100%;
     height: 100%;
   }
+  @media (max-width:680px){
+    width: calc((100% - 20px )/2);
+  }
 }
 
 /* ボタンのスタイル */
@@ -35,7 +39,7 @@ button{
   background-color: #fcc8de;
   padding: 6px 12px;
   border-radius: 6px;
-  margin: 0 5px;
+  margin: 5px;
   &.mixitup-control-active{
     background-color: #ee77a9;
     color: #fff;
